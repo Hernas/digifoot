@@ -60,7 +60,8 @@ class PreviewMatchView(TemplateView):
     template_name = "preview.html"
 
     def get(self, request, *args, **kwargs):
-        if not MatchModel.last_match(request.spark):
+        match = MatchModel.last_match(request.spark)
+        if not match:
             return redirect(reverse('league:new'))
 
-        return self.render_to_response({})
+        return self.render_to_response({"match": match})

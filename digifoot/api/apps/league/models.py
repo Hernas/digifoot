@@ -25,8 +25,8 @@ class MatchModel(AbstractModel):
     device = ForeignKey(SparkDeviceModel, related_name="matches")
     finished = BooleanField(default=False)
     canceled = BooleanField(default=False)
-    white_side_matches = ManyToManyField(PlayerModel, related_name="white_side_matches")
-    black_side_matches = ManyToManyField(PlayerModel, related_name="black_side_matches")
+    white_side_players = ManyToManyField(PlayerModel, related_name="white_side_players")
+    black_side_players = ManyToManyField(PlayerModel, related_name="black_side_players")
 
     @classmethod
     def create_match(cls, spark, white_player1, black_player1, white_player2=None, black_player2=None):
@@ -41,13 +41,13 @@ class MatchModel(AbstractModel):
         match.save()
 
 
-        match.white_side_matches.add(white_player1)
-        match.black_side_matches.add(black_player1)
+        match.white_side_players.add(white_player1)
+        match.black_side_players.add(black_player1)
 
         if white_player2:
-            match.white_side_matches.add(white_player2.pk)
+            match.white_side_players.add(white_player2.pk)
         if black_player2:
-            match.black_side_matches.add(black_player2)
+            match.black_side_players.add(black_player2)
 
         return match
 

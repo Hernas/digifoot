@@ -2,43 +2,49 @@
 {% load staticfiles %}
 {% block main %}
   <script type="application/javascript" src="{% static "js/scoreboard.js" %}"></script>
+  <script type="application/javascript">
+    $(document).ready(function () {
+      scored("{{ match.white_count }}", "{{ match.black_count }}");
+    });
+  </script>
 
-	<section id="container">
+  <section id="container">
 
-		<!-- SCORE -->
+    <!-- SCORE -->
 
-		<section id="scoreboard" class="page active">
-			<!-- <div class="toolbar">
-				<a href="#settings" class="settings js_setup">⚙</a>
-				<a href="#scoreboard" class="undo hide js_undo">Undo</a>
-				<h1>Digital Foosball</h1>
-				<a href="#summary" class="cancel js_abort">Abbruch</a>
-			</div> -->
-            <dl class="board">
-                <dt>Schwarz</dt>
-                <dd id="scorehome" class="scorecard full">&nbsp;</dd>
-                <dt>Weiss</dt>
-                <dd id="scorevisitors" class="scorecard full">&nbsp;</dd>
-            </dl>
-            <div class="players">
-                <div>
-                    <div class="formrow">
-                        <div class="home1"></div>
-                        <div class="home2"></div>
-                    </div>
-                    <div class="formrow">
-                        <div class="visitors1"></div>
-                        <div class="visitors2"></div>
-                    </div>
-                </div>
-            </div>
-          <!--   <div class="settings">
-                <a href="#settings" class="btn change js_invert">⇔</a>
-                <a href="#settings" class="btn home plus js_homeplus">▲</a>
-                <a href="#settings" class="btn home minus js_homeminus">▼</a>
-                <a href="#settings" class="btn visitors plus js_visitorsplus">▲</a>
-                <a href="#settings" class="btn visitors minus js_visitorsminus">▼</a>
-            </div> -->
-        </section>
+    <section id="scoreboard" class="page active">
+      <div class="toolbar">
+{#        <a href="#settings" class="settings js_setup">⚙</a>#}
+{#        <a href="#scoreboard" class="undo hide js_undo">Undo</a>#}
 
-	</section>{% endblock %}
+        <h1>Digital Foosball</h1>
+        <a href="#summary" class="cancel js_abort">Abbruch</a>
+      </div>
+      <dl class="board">
+        <dt>Schwarz</dt>
+        <dd id="scorehome" class="scorecard full">&nbsp;</dd>
+        <dt>Weiss</dt>
+        <dd id="scorevisitors" class="scorecard full">&nbsp;</dd>
+      </dl>
+      <div class="players show" style="display: block;">
+        <div>
+          <div class="formrow">
+            <div class="home1">{{ match.white_side_players.all.0.name }}</div>
+            <div class="home2">{{ match.white_side_players.all.1.name }}</div>
+          </div>
+          <div class="formrow">
+            <div class="visitors1">{{ match.black_side_players.all.0.name }}</div>
+            <div class="visitors2">{{ match.black_side_players.all.1.name }}</div>
+          </div>
+        </div>
+      </div>
+{#         <div class="settings active">#}
+{#            <a href="#settings" class="btn change js_invert">⇔</a>#}
+{#            <a href="#settings" class="btn home plus js_homeplus">▲</a>#}
+{#            <a href="#settings" class="btn home minus js_homeminus">▼</a>#}
+{#            <a href="#settings" class="btn visitors plus js_visitorsplus">▲</a>#}
+{#            <a href="#settings" class="btn visitors minus js_visitorsminus">▼</a>#}
+{#        </div>#}
+    </section>
+
+  </section>{% endblock %}
