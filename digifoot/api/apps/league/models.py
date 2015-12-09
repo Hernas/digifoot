@@ -24,6 +24,7 @@ class MatchModel(AbstractModel):
 
     device = ForeignKey(SparkDeviceModel, related_name="matches")
     finished = BooleanField(default=False)
+    canceled = BooleanField(default=False)
     white_side_matches = ManyToManyField(PlayerModel, related_name="white_side_matches")
     black_side_matches = ManyToManyField(PlayerModel, related_name="black_side_matches")
 
@@ -54,9 +55,17 @@ class MatchModel(AbstractModel):
     def last_match(cls, spark):
         return cls.objects.filter(device=spark, finished=False).last()
 
+    @property
+    def white_count(self):
+        return self.goals.filter(whites=True).count()
+
+    @property
+    def black_count(self):
+        return self.goals.filter(whites=False).count()
+
 
 class GoalModel(AbstractModel):
-    match = ForeignKey(MatchModel)
+    match = ForeignKey(MatchModel, related_name="goals")
     whites = BooleanField()
 
     @classmethod

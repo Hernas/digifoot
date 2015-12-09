@@ -32,7 +32,7 @@ class RegisterResource(GenericAPIView):
     ]
 
     def post(self, request):
-        serializer = self.get_serializer(data=request.DATA)
+        serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
@@ -45,7 +45,7 @@ class RemindPassword(GenericAPIView):
     ]
 
     def post(self, request):
-        serializer = RemindPasswordParamsSerializer(data=request.DATA)
+        serializer = RemindPasswordParamsSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         try:
@@ -57,22 +57,13 @@ class RemindPassword(GenericAPIView):
         user.set_password(new_password)
         user.save()
 
-        mail.send(
-            [user.email],
-            settings.SERVER_EMAIL,
-            subject=_('Password reminder'),
-            message=_('New password: {0}').format(new_password),
-            html_message=_('New password: {0}').format(new_password),
-            priority='now',
-        )
-
         data = serializer.data
         return Response(data, status=status.HTTP_200_OK)
 
 class ChangePassword(GenericAPIView):
 
     def post(self, request):
-        serializer = ChangePasswordParamsSerializer(data=request.DATA, user=self.request.user)
+        serializer = ChangePasswordParamsSerializer(data=request.data, user=self.request.user)
         serializer.is_valid(raise_exception=True)
 
         new_password = serializer.data['password']

@@ -1,18 +1,14 @@
 # encoding: utf-8
 from __future__ import absolute_import, unicode_literals
 
-import os
 import logging
-import vcr
-import unittest
-from mock import patch
 
-from django.utils.datetime_safe import datetime
 from django.conf import settings
 from django.test.testcases import TestCase
 from rest_framework import test
-from digifoot.api.apps.users.models import User
 from rest_framework_jwt import utils
+
+from digifoot.api.apps.users.models import User
 
 
 log = logging.getLogger(__name__)
@@ -25,10 +21,6 @@ class APIClient(test.APIClient):
 class APITestCase(test.APITestCase):
     maxDiff = None
     client_class = APIClient
-    vcr = vcr.VCR(
-        serializer='yaml',
-        cassette_library_dir=settings.CASSETTES_DIR
-    )
 
     def setUp(self):
         super(APITestCase, self).setUp()

@@ -14,6 +14,7 @@ Then add DB:
     template1=# CREATE USER digifoot WITH PASSWORD 'digifoot';
     template1=# CREATE DATABASE digifoot;
     template1=# GRANT ALL PRIVILEGES ON DATABASE digifoot to digifoot;
+    template1=# ALTER USER digifoot CREATEDB;
     
 ## Bootstrap 
 
