@@ -1,0 +1,235 @@
+@-webkit-keyframes acceleratedReveal {
+    0%      { -webkit-transform:translate3d(0, -125px, 0); }
+    100%    { -webkit-transform:translate3d(0,   0  , 0); }
+}
+@-moz-keyframes acceleratedReveal {
+    0%      { -moz-transform:translate3d(0, -125px, 0); }
+    100%    { -moz-transform:translate3d(0,   0  , 0); }
+}
+@-o-keyframes acceleratedReveal {
+    0%      { -o-transform:translate3d(0, -125px, 0); }
+    100%    { -o-transform:translate3d(0,   0  , 0); }
+}
+@-ms-keyframes acceleratedReveal {
+    0%      { -ms-transform:translate3d(0, -125px, 0); }
+    100%    { -ms-transform:translate3d(0,   0  , 0); }
+}
+@keyframes acceleratedReveal {
+    0%      { transform:translate3d(0, -125px, 0); }
+    100%    { transform:translate3d(0,   0  , 0); }
+}
+
+@-webkit-keyframes showBoard {
+	0% {
+	    opacity: 0;
+        -webkit-transform: scale(0);
+	}
+	100% {
+	    opacity: 1;
+        -webkit-transform: scale(1);
+	}
+}
+@-moz-keyframes showBoard {
+	0% {
+	    opacity: 0;
+        -moz-transform: scale(0);
+	}
+	100% {
+	    opacity: 1;
+        -moz-transform: scale(1);
+	}
+}
+@-o-keyframes showBoard {
+	0% {
+	    opacity: 0;
+        -o-transform: scale(0);
+	}
+	100% {
+	    opacity: 1;
+        -o-transform: scale(1);
+	}
+}
+@-ms-keyframes showBoard {
+	0% {
+	    opacity: 0;
+        -ms-transform: scale(0);
+	}
+	100% {
+	    opacity: 1;
+        -ms-transform: scale(1);
+	}
+}
+@keyframes showBoard {
+	0% {
+	    opacity: 0;
+        transform: scale(0);
+	}
+	100% {
+	    opacity: 1;
+        transform: scale(1);
+	}
+}
+
+@-webkit-keyframes hideBoard {
+	0% {
+	    opacity: 1;
+	}
+	100% {
+	    opacity: 0;
+	    -webkit-transform: scale(0);
+	}
+}
+@-moz-keyframes hideBoard {
+	0% {
+	    opacity: 1;
+	}
+	100% {
+	    opacity: 0;
+	    -moz-transform: scale(0);
+	}
+}
+@-o-keyframes hideBoard {
+	0% {
+	    opacity: 1;
+	}
+	100% {
+	    opacity: 0;
+	    -o-transform: scale(0);
+	}
+}
+@-ms-keyframes hideBoard {
+	0% {
+	    opacity: 1;
+	}
+	100% {
+	    opacity: 0;
+	    -ms-transform: scale(0);
+	}
+}
+@keyframes hideBoard {
+	0% {
+	    opacity: 1;
+	}
+	100% {
+	    opacity: 0;
+	    transform: scale(0);
+	}
+}
+
+
+@-webkit-keyframes moveUp {
+	0% {
+    	-webkit-transform: translate3d(0,0,0);
+	}
+	50% {
+    	-webkit-transform: translate3d(25px,0,50px);
+    	background: black;
+	}
+	100% {
+    	-webkit-transform: translate3d(0,0,0);
+	}
+}
+@-moz-keyframes moveUp {
+	0% {
+    	-moz-transform: translate3d(0,0,0);
+	}
+	50% {
+    	-moz-transform: translate3d(25px,0,50px);
+    	background: black;
+	}
+	100% {
+    	-moz-transform: translate3d(0,0,0);
+	}
+}
+@-o-keyframes moveUp {
+	0% {
+    	-o-transform: translate3d(0,0,0);
+	}
+	50% {
+    	-o-transform: translate3d(25px,0,50px);
+    	background: black;
+	}
+	100% {
+    	-o-transform: translate3d(0,0,0);
+	}
+}
+@-ms-keyframes moveUp {
+	0% {
+    	-ms-transform: translate3d(0,0,0);
+	}
+	50% {
+    	-ms-transform: translate3d(25px,0,50px);
+    	background: black;
+	}
+	100% {
+    	-ms-transform: translate3d(0,0,0);
+	}
+}
+@keyframes moveUp {
+	0% {
+    	transform: translate3d(0,0,0);
+	}
+	50% {
+    	transform: translate3d(25px,0,50px);
+    	background: black;
+	}
+	100% {
+    	transform: translate3d(0,0,0);
+	}
+}
+
+@-webkit-keyframes moveDown {
+	0% {
+    	-webkit-transform: translate3d(0,0,0);
+	}
+	50% {
+    	-webkit-transform: translate3d(-25px,0,-50px);
+	}
+	100% {
+    	-webkit-transform: translate3d(0,0,0);
+	}
+}
+@-moz-keyframes moveDown {
+	0% {
+    	-moz-transform: translate3d(0,0,0);
+	}
+	50% {
+    	-moz-transform: translate3d(-25px,0,-50px);
+	}
+	100% {
+    	-moz-transform: translate3d(0,0,0);
+	}
+}
+@-o-keyframes moveDown {
+	0% {
+    	-o-transform: translate3d(0,0,0);
+	}
+	50% {
+    	-o-transform: translate3d(-25px,0,-50px);
+	}
+	100% {
+    	-o-transform: translate3d(0,0,0);
+	}
+}
+@-ms-keyframes moveDown {
+	0% {
+    	-ms-transform: translate3d(0,0,0);
+	}
+	50% {
+    	-ms-transform: translate3d(-25px,0,-50px);
+	}
+	100% {
+    	-ms-transform: translate3d(0,0,0);
+	}
+}
+@keyframes moveDown {
+	0% {
+    	transform: translate3d(0,0,0);
+	}
+	50% {
+    	transform: translate3d(-25px,0,-50px);
+	}
+	100% {
+    	transform: translate3d(0,0,0);
+	}
+}

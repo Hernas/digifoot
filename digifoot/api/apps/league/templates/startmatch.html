@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block main %}
+
+
+		<!-- SECTION LOGIN -->
+		<section id="login" class="page active">
+			<div class="toolbar">
+				<a href="{% url 'league:index' %}" class="back js_home">Home</a>
+				<h1>Digital Football</h1>
+			</div>
+			<h2 class="h1">Gib die Usernamen der Spieler ein.</h2>
+			<p>Usernamen mit @ werden als Twitternamen erkannt.</p>
+<form action="" method="post"  novalidate="novalidate">
+    {% csrf_token %}
+				<fieldset>
+					<div class="formrow">
+						<div><input type="email" name="player1_white" /></div>
+            {%  if four_players %}
+						<div><input type="email" name="player2_white" /></div>
+            {% endif %}
+					</div>
+					<div class="formrow">
+						<div><input type="email" name="player1_black" /></div>
+            {%  if four_players %}
+						<div><input type="email" name="player2_black" /></div>
+            {% endif %}
+					</div>
+				</fieldset>
+                <div class="buttonbar">
+                    <input type="submit" class="button" value="Los geht's" />
+                </div>
+			</form>
+		</section>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block main %}
+
+	<section id="container">
+
+		<!-- SCORE -->
+
+		<section id="scoreboard" class="page active">
+			<!-- <div class="toolbar">
+				<a href="#settings" class="settings js_setup">⚙</a>
+				<a href="#scoreboard" class="undo hide js_undo">Undo</a>
+				<h1>Digital Foosball</h1>
+				<a href="#summary" class="cancel js_abort">Abbruch</a>
+			</div> -->
+            <dl class="board">
+                <dt>Schwarz</dt>
+                <dd id="scorehome" class="scorecard full"></dd>
+                <dt>Weiss</dt>
+                <dd id="scorevisitors" class="scorecard full"></dd>
+            </dl>
+            <div class="players">
+                <div>
+                    <div class="formrow">
+                        <div class="home1">&nbsp;</div>
+                        <div class="home2">&nbsp;</div>
+                    </div>
+                    <div class="formrow">
+                        <div class="visitors1">&nbsp;</div>
+                        <div class="visitors2">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+          <!--   <div class="settings">
+                <a href="#settings" class="btn change js_invert">⇔</a>
+                <a href="#settings" class="btn home plus js_homeplus">▲</a>
+                <a href="#settings" class="btn home minus js_homeminus">▼</a>
+                <a href="#settings" class="btn visitors plus js_visitorsplus">▲</a>
+                <a href="#settings" class="btn visitors minus js_visitorsminus">▼</a>
+            </div> -->
+        </section>
+
+	</section>{% endblock %}

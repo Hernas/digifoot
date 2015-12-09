@@ -1,0 +1,17 @@
+Django==1.9
+django-extensions
+django-form-utils
+django-model-utils==2.2
+djangorestframework
+drf-extensions
+factory-boy
+gunicorn
+mock
+psycopg2
+raven
+dj-database-url
+djangorestframework-jwt
+dj_static
+pytz
+pusher
+cryptography
