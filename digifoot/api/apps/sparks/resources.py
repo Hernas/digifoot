@@ -41,14 +41,14 @@ class GoalResource(RetrieveUpdateAPIView):
         instance = self.get_object()
         match = MatchModel.last_match(instance)
         if match is None:
-            return Response(data={"error": "Please start match first"}, status=HTTP_400_BAD_REQUEST)
+            return Response(data={"error": "Please start match first"})
 
         white, black = self.request.data['data'].split(',')
         try:
             white = int(white)
             black = int(black)
         except ValueError:
-            return Response(data={"error": "Wrong data. Data needs to be two numeric values separated by comma"}, status=HTTP_400_BAD_REQUEST)
+            return Response(data={"error": "Wrong data. Data needs to be two numeric values separated by comma"})
 
         for index in range(match.white_count, white):
             GoalModel.objects.create(whites=True, match=match)

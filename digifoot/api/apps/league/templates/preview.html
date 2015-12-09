@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block main %}
+  <script type="application/javascript" src="{% static "js/scoreboard.js" %}"></script>
 
 	<section id="container">
 
@@ -14,19 +16,19 @@
 			</div> -->
             <dl class="board">
                 <dt>Schwarz</dt>
-                <dd id="scorehome" class="scorecard full"></dd>
+                <dd id="scorehome" class="scorecard full">&nbsp;</dd>
                 <dt>Weiss</dt>
-                <dd id="scorevisitors" class="scorecard full"></dd>
+                <dd id="scorevisitors" class="scorecard full">&nbsp;</dd>
             </dl>
             <div class="players">
                 <div>
                     <div class="formrow">
-                        <div class="home1">&nbsp;</div>
-                        <div class="home2">&nbsp;</div>
+                        <div class="home1"></div>
+                        <div class="home2"></div>
                     </div>
                     <div class="formrow">
-                        <div class="visitors1">&nbsp;</div>
-                        <div class="visitors2">&nbsp;</div>
+                        <div class="visitors1"></div>
+                        <div class="visitors2"></div>
                     </div>
                 </div>
             </div>
