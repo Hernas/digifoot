@@ -98,3 +98,16 @@ class ChangeSidesView(View):
 
         MatchModel.create_match(request.spark, bp1, wp1, bp2, wp2)
         return redirect(reverse('league:preview'))
+
+class QuickStartView(View):
+
+    def get(self, request, *args, **kwargs):
+        match = MatchModel.last_match(request.spark)
+        if match:
+            return redirect(reverse('league:preview'))
+
+        team1 = PlayerModel.objects.create(name="Team 1")
+        team2 = PlayerModel.objects.create(name="Team 2")
+
+        MatchModel.create_match(request.spark, team1, team2)
+        return redirect(reverse('league:preview'))

@@ -12,7 +12,7 @@
 			<ul id="gametypes">
 				<li class="two"><a href="{% url 'league:new' 2 %}" class="js_login" data-opponents="2">1 Gegen 1</a></li>
 				<li class="four"><a href="{% url 'league:new' 4 %}">2 Gegen 2</a></li>
-				<li class="quick"><a href="#scoreboard" class="js_quickstart">Quickstart</a></li>
+				<li class="quick"><a href="{% url 'league:quick_start' %}" class="js_quickstart">Quickstart</a></li>
 			</ul>
 		</section>
 {% endblock %}

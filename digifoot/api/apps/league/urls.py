@@ -5,7 +5,7 @@ from django.conf.urls import url
 
 from digifoot.api.apps.league.resources import MatchResource
 from digifoot.api.apps.league.views import StartMatchView, IndexView, PreviewMatchView, CancelMatchView, \
-    FinalResultsMatchView, ChangeSidesView
+    FinalResultsMatchView, ChangeSidesView, QuickStartView
 
 
 urlpatterns = [
@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^cancel/$', CancelMatchView.as_view(), name="cancel"),
     url(r'^final_results/$', FinalResultsMatchView.as_view(), name="final_results"),
     url(r'^change_sides/$', ChangeSidesView.as_view(), name="change_sides"),
+    url(r'^quick_start/$', QuickStartView.as_view(), name="quick_start"),
 
     # API
     url(r'^matches/current/$', MatchResource.as_view(), name="current"),

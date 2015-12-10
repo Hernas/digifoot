@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
-from decimal import Decimal
 
 import logging
-from django.db.models.fields import CharField, BooleanField, URLField, DecimalField, DateTimeField
+
+from django.db.models.fields import CharField, BooleanField, DateTimeField
 from django.db.models.fields.related import ForeignKey, ManyToManyField
 from django.utils import timezone
+import twitter
+from django.conf import settings
+
 from digifoot.api.apps.sparks.models import SparkDeviceModel
 from digifoot.lib.django.models import AbstractModel
 
-import twitter
-from django.conf import settings
 
 log = logging.getLogger(__name__)
 
@@ -22,6 +23,7 @@ class PlayerModel(AbstractModel):
 class MatchModel(AbstractModel):
     class WrongPlayers(Exception):
         pass
+
     class MatchAlreadyInProgress(Exception):
         pass
 
@@ -50,32 +52,55 @@ class MatchModel(AbstractModel):
 
         self.tweet_if_needed()
 
+    @property
+    def team_names(self):
+        if self.white_count > self.black_count:
+            winners = self.white_side_players
+            losers = self.black_side_players
+        else:
+            winners = self.black_side_players
+            losers = self.white_side_players
+
+        winners_names = [winner.name for winner in winners.all()]
+        losers_names = [loser.name for loser in losers.all()]
+        return winners_names, losers_names
+
+    @property
+    def final_scores(self):
+        if self.white_count > self.black_count:
+            winners = self.white_count
+            losers = self.black_count
+        else:
+            winners = self.black_count
+            losers = self.white_count
+
+        return winners, losers
+
+    @property
+    def tweet_message(self):
+        winners, losers = self.team_names
+        winners = " ".join(["@{0}".format(w) for w in winners])
+        losers = " ".join(["@{0}".format(l) for l in losers])
+
+        winners_score, losers_score = self.final_scores
+
+        status = "Schönes Ding: {winners} gewinnt {winners_score}:{losers_score} gegen {losers}".format(
+            winners=winners,
+            winners_score=winners_score,
+            losers_score=losers_score,
+            losers=losers,
+        )
+        return status
+
     def tweet_if_needed(self):
         if not self.tweeted:
             account = settings.TWITTER_ACCOUNT
             api = twitter.Api(**account)
 
-            status = "Schönes Ding: @{pw1} gewinnt {sw}:{sl} gegen @{pl1}".format(
-                pw1="asd",
-                sw="2",
-                sl="1",
-                pl1="sad",
-            )
-
-            if self.white_side_players.count() > 1 or self.black_side_players.count() > 1:
-                status = "Schönes Ding: @{pw1} @{pw2} gewinnt {sw}:{sl} gegen @{pl1} @{pl2}".format(
-                    pw1="asd",
-                    pw2="asd",
-                    sw="2",
-                    sl="1",
-                    pl1="sad",
-                    pl2="fds",
-                )
-            result = api.PostUpdate(status)
+            result = api.PostUpdate(self.tweet_message)
 
             self.tweeted = True
             self.save()
-
 
 
     @classmethod
@@ -89,7 +114,6 @@ class MatchModel(AbstractModel):
         match = MatchModel()
         match.device = spark
         match.save()
-
 
         match.white_side_players.add(white_player1)
         match.black_side_players.add(black_player1)
