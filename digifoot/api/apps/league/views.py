@@ -21,6 +21,10 @@ class IndexView(TemplateView):
         return self.render_to_response({})
 
 
+
+class CreditsView(TemplateView):
+    template_name = "credits.html"
+
 class StartMatchView(TemplateView):
     template_name = "startmatch.html"
 

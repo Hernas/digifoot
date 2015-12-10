@@ -1360,3 +1360,20 @@ input[type=email].error {
     margin-left: -150px;
   }
 }
+.footer {
+  position: absolute;
+  bottom: 10px;
+  text-align: center;
+  width: 100%;
+}
+.footer img {
+  display: inline-block;
+  height: 100px;
+  margin-bottom: -41px;
+}
+.credits {
+  background: black;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+}
