@@ -54,7 +54,24 @@ class MatchModel(AbstractModel):
         if not self.tweeted:
             account = settings.TWITTER_ACCOUNT
             api = twitter.Api(**account)
-            status = api.PostUpdate('I love python-twitter!')
+
+            status = "Schönes Ding: @{pw1} gewinnt {sw}:{sl} gegen @{pl1}".format(
+                pw1="asd",
+                sw="2",
+                sl="1",
+                pl1="sad",
+            )
+
+            if self.white_side_players.count() > 1 or self.black_side_players.count() > 1:
+                status = "Schönes Ding: @{pw1} @{pw2} gewinnt {sw}:{sl} gegen @{pl1} @{pl2}".format(
+                    pw1="asd",
+                    pw2="asd",
+                    sw="2",
+                    sl="1",
+                    pl1="sad",
+                    pl2="fds",
+                )
+            result = api.PostUpdate(status)
 
             self.tweeted = True
             self.save()
