@@ -78,7 +78,11 @@ class MatchModel(AbstractModel):
 
     @property
     def tweet_message(self):
+
         winners, losers = self.team_names
+
+        easter_egg = set(winners + losers) == set(["mfts", "strobl", "bartoszhernas", "michal.hernas"])
+
         winners = " ".join(["@{0}".format(w) for w in winners])
         losers = " ".join(["@{0}".format(l) for l in losers])
 
@@ -90,6 +94,15 @@ class MatchModel(AbstractModel):
             losers_score=losers_score,
             losers=losers,
         )
+
+        if easter_egg:
+            status = "Piękna rzecz: {winners} wygrali {winners_score}:{losers_score} z {losers} #hernas #hackevents".format(
+                winners=winners,
+                winners_score=winners_score,
+                losers_score=losers_score,
+                losers=losers,
+            )
+
         return status
 
     def tweet_if_needed(self):
