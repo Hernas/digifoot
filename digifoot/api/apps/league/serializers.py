@@ -9,5 +9,5 @@ from digifoot.api.apps.league.models import MatchModel
 class MatchModelSerializer(ModelSerializer):
     class Meta:
         model = MatchModel
-        fields = ('id', 'white_count', 'black_count')
+        fields = ('id', 'white_count', 'black_count', 'finished', 'canceled')
         read_only_fields = fields

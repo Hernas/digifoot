@@ -3,8 +3,9 @@ from __future__ import absolute_import, unicode_literals
 from decimal import Decimal
 
 import logging
-from django.db.models.fields import CharField, BooleanField, URLField, DecimalField
+from django.db.models.fields import CharField, BooleanField, URLField, DecimalField, DateTimeField
 from django.db.models.fields.related import ForeignKey, ManyToManyField
+from django.utils import timezone
 from digifoot.api.apps.sparks.models import SparkDeviceModel
 from digifoot.lib.django.models import AbstractModel
 
@@ -24,9 +25,16 @@ class MatchModel(AbstractModel):
 
     device = ForeignKey(SparkDeviceModel, related_name="matches")
     finished = BooleanField(default=False)
+    finished_at = DateTimeField(blank=False, default=timezone.now)
+
     canceled = BooleanField(default=False)
+
     white_side_players = ManyToManyField(PlayerModel, related_name="white_side_players")
     black_side_players = ManyToManyField(PlayerModel, related_name="black_side_players")
+
+    @property
+    def duration(self):
+        return self.finished_at - self.created_at
 
     def cancel(self):
         self.canceled = True
@@ -34,6 +42,7 @@ class MatchModel(AbstractModel):
 
     def finish(self):
         self.finished = True
+        self.finished_at = timezone.now()
         self.save()
 
     @classmethod

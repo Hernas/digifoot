@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{%  load naturalTimeDifference %}
 {% block main %}
 
 
@@ -7,8 +8,8 @@
 			<div class="toolbar">
 				<h1>Digital Foosball</h1>
 			</div>
-			<h2 class="h1">Spielende nach <span class="js_duration">∞</span></h2>
-			<p class="h1">Endstand <span class="js_finalscore">-:-</span></p>
+			<h2 class="h1">Spielende nach <span class="js_duration">{{ match.duration | naturalTimeDifference }}</span></h2>
+			<p class="h1">Endstand <span class="js_finalscore">{{ match.white_count }}:{{ match.black_count }}</span></p>
 			<div class="tweet js_tweet"><span>Tweet wird gesendet...</span></div>
 
 			<!-- CANCEL + NEW GAME -->

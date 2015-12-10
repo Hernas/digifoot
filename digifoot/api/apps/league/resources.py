@@ -19,7 +19,6 @@ class MatchResource(RetrieveAPIView):
     ]
 
     serializer_class = MatchModelSerializer
-    queryset = MatchModel.objects.all()
 
     def get_object(self):
-        return MatchModel.last_match(self.request.spark)
+        return MatchModel.objects.filter(device=self.request.spark, canceled=False).last()

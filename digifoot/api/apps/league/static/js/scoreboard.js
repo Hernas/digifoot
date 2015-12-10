@@ -3,6 +3,9 @@ var scoreSign = [];
 var refreshScores = function () {
   $.ajax(refresh_url).then(function (response) {
     console.info(response);
+    if(response.finished) {
+      window.location.href = final_results_url;
+    }
     scored(response.white_count, response.black_count);
   })
 }
