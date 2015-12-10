@@ -13,8 +13,8 @@
 
 			<!-- CANCEL + NEW GAME -->
 			<div class="buttonbar">
-				<a href="#scoreboard" class="button js_rematch">Seitenwechsel</a>
-				<a href="#home" class="button js_quit">Abbruch</a>
+				<a href="{% url 'league:change_sides' %}" class="button js_rematch">Seitenwechsel</a>
+				<a href="{% url 'league:cancel' %}" class="button js_quit">Abbruch</a>
 			</div>
 		</section>
 {% endblock %}

@@ -62,7 +62,7 @@ class PreviewMatchView(TemplateView):
     def get(self, request, *args, **kwargs):
         match = MatchModel.last_match(request.spark)
         if not match:
-            return redirect(reverse('league:new'))
+            return redirect(reverse('league:index'))
 
         return self.render_to_response({"match": match})
 
@@ -73,3 +73,28 @@ class CancelMatchView(View):
         match.cancel()
 
         return redirect(reverse('league:index'))
+
+class FinalResultsMatchView(TemplateView):
+    template_name = "finalresults.html"
+
+    def get(self, request, *args, **kwargs):
+        match = MatchModel.objects.filter(finished=True).last()
+        return self.render_to_response({"match": match})
+
+class ChangeSidesView(View):
+
+    def get(self, request, *args, **kwargs):
+        match = MatchModel.objects.filter(finished=True).last()
+        match.cancel()
+
+        white_players = match.white_side_players.all()
+        black_players = match.black_side_players.all()
+
+        wp1 = white_players[0]
+        bp1 = black_players[0]
+
+        wp2 = white_players[1] if len(white_players) > 1 else None
+        bp2 = white_players[1] if len(black_players) > 1 else None
+
+        MatchModel.create_match(request.spark, bp1, wp1, bp2, wp2)
+        return redirect(reverse('league:preview'))
