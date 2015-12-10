@@ -14,6 +14,12 @@ log = logging.getLogger(__name__)
 class IndexView(TemplateView):
     template_name = "index.html"
 
+    def get(self, request, *args, **kwargs):
+        if MatchModel.last_match(request.spark):
+            return redirect(reverse('league:preview'))
+
+        return self.render_to_response({})
+
 
 class StartMatchView(TemplateView):
     template_name = "startmatch.html"
