@@ -3,8 +3,10 @@
 {% block main %}
   <script type="application/javascript" src="{% static "js/scoreboard.js" %}"></script>
   <script type="application/javascript">
+    var refresh_url = "{% url 'league:current' %}";
     $(document).ready(function () {
       scored("{{ match.white_count }}", "{{ match.black_count }}");
+
     });
   </script>
 

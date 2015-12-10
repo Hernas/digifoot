@@ -43,7 +43,7 @@ class GoalResource(RetrieveUpdateAPIView):
         if match is None:
             return Response(data={"error": "Please start match first"})
 
-        white, black = self.request.get['data'].split(',')
+        white, black = self.request.data['data'].split(',')
         try:
             white = int(white)
             black = int(black)

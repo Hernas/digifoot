@@ -1,10 +1,24 @@
 var scoreSign = [];
+
+var refreshScores = function () {
+  $.ajax(refresh_url).then(function (response) {
+    console.info(response);
+    scored(response.white_count, response.black_count);
+  })
+}
+
+
 $(document).ready(function () {
   for (var i = 0; i < 45; ++i) {
     scoreSign.push("<span class=\"rly\"></span>");
   }
   // Reset score
   $("#scorehome, #scorevisitors").html(scoreSign.join(""));
+
+  // Start refreshing scores
+  setInterval(function () {
+    refreshScores();
+  }, 1000);
 });
 
 
