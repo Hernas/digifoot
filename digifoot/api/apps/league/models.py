@@ -9,6 +9,8 @@ from django.utils import timezone
 from digifoot.api.apps.sparks.models import SparkDeviceModel
 from digifoot.lib.django.models import AbstractModel
 
+import twitter
+from django.conf import settings
 
 log = logging.getLogger(__name__)
 
@@ -27,6 +29,7 @@ class MatchModel(AbstractModel):
     finished = BooleanField(default=False)
     finished_at = DateTimeField(blank=False, default=timezone.now)
 
+    tweeted = BooleanField(default=False)
     canceled = BooleanField(default=False)
 
     white_side_players = ManyToManyField(PlayerModel, related_name="white_side_players")
@@ -44,6 +47,19 @@ class MatchModel(AbstractModel):
         self.finished = True
         self.finished_at = timezone.now()
         self.save()
+
+        self.tweet_if_needed()
+
+    def tweet_if_needed(self):
+        if not self.tweeted:
+            account = settings.TWITTER_ACCOUNT
+            api = twitter.Api(**account)
+            status = api.PostUpdate('I love python-twitter!')
+
+            self.tweeted = True
+            self.save()
+
+
 
     @classmethod
     def create_match(cls, spark, white_player1, black_player1, white_player2=None, black_player2=None):

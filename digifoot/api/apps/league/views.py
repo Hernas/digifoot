@@ -94,7 +94,7 @@ class ChangeSidesView(View):
         bp1 = black_players[0]
 
         wp2 = white_players[1] if len(white_players) > 1 else None
-        bp2 = white_players[1] if len(black_players) > 1 else None
+        bp2 = black_players[1] if len(black_players) > 1 else None
 
         MatchModel.create_match(request.spark, bp1, wp1, bp2, wp2)
         return redirect(reverse('league:preview'))
