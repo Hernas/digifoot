@@ -82,7 +82,7 @@ class MatchModel(AbstractModel):
         if black_player2:
             match.black_side_players.add(black_player2)
 
-        # TODO: Reset points in Spark
+        match.device.reset_state()
         return match
 
     @classmethod
