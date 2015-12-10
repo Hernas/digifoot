@@ -58,8 +58,7 @@ class GoalResource(RetrieveUpdateAPIView):
 
 
         if white >= 6 or black >= 6:
-            match.finished = True
-            match.save()
+            match.finish()
 
         serializer = self.get_serializer(instance)
         data = serializer.data

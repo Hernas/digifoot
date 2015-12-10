@@ -65,3 +65,11 @@ class PreviewMatchView(TemplateView):
             return redirect(reverse('league:new'))
 
         return self.render_to_response({"match": match})
+
+class CancelMatchView(View):
+
+    def get(self, request, *args, **kwargs):
+        match = MatchModel.last_match(request.spark)
+        match.cancel()
+
+        return redirect(reverse('league:index'))

@@ -28,6 +28,14 @@ class MatchModel(AbstractModel):
     white_side_players = ManyToManyField(PlayerModel, related_name="white_side_players")
     black_side_players = ManyToManyField(PlayerModel, related_name="black_side_players")
 
+    def cancel(self):
+        self.canceled = True
+        self.save()
+
+    def finish(self):
+        self.finished = True
+        self.save()
+
     @classmethod
     def create_match(cls, spark, white_player1, black_player1, white_player2=None, black_player2=None):
         if cls.last_match(spark) is not None:
@@ -49,11 +57,12 @@ class MatchModel(AbstractModel):
         if black_player2:
             match.black_side_players.add(black_player2)
 
+        # TODO: Reset points in Spark
         return match
 
     @classmethod
     def last_match(cls, spark):
-        return cls.objects.filter(device=spark, finished=False).last()
+        return cls.objects.filter(device=spark, finished=False, canceled=False).last()
 
     @property
     def white_count(self):
