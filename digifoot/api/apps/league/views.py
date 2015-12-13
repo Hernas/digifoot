@@ -79,7 +79,7 @@ class PreviewMatchView(TemplateView):
 class CancelMatchView(View):
 
     def get(self, request, *args, **kwargs):
-        match = MatchModel.last_match(request.spark)
+        match = MatchModel.objects.all(device=request.spark).last()
         match.cancel()
 
         return redirect(reverse('league:index'))
@@ -88,13 +88,13 @@ class FinalResultsMatchView(TemplateView):
     template_name = "finalresults.html"
 
     def get(self, request, *args, **kwargs):
-        match = MatchModel.objects.filter(finished=True).last()
+        match = MatchModel.objects.filter(device=request.spark, finished=True).last()
         return self.render_to_response({"match": match})
 
 class ChangeSidesView(View):
 
     def get(self, request, *args, **kwargs):
-        match = MatchModel.objects.filter(finished=True).last()
+        match = MatchModel.objects.filter(device=request.spark, finished=True).last()
         match.cancel()
 
         match = MatchModel.last_match(request.spark)
