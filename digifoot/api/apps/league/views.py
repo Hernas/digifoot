@@ -79,7 +79,7 @@ class PreviewMatchView(TemplateView):
 class CancelMatchView(View):
 
     def get(self, request, *args, **kwargs):
-        match = MatchModel.objects.all(device=request.spark).last()
+        match = MatchModel.objects.filter(device=request.spark).last()
         match.cancel()
 
         return redirect(reverse('league:index'))
