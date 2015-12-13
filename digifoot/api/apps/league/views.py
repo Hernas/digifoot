@@ -97,6 +97,10 @@ class ChangeSidesView(View):
         match = MatchModel.objects.filter(finished=True).last()
         match.cancel()
 
+        match = MatchModel.last_match(request.spark)
+        if match:
+            return redirect(reverse('league:preview'))
+
         white_players = match.white_side_players.all()
         black_players = match.black_side_players.all()
 
@@ -116,8 +120,8 @@ class QuickStartView(View):
         if match:
             return redirect(reverse('league:preview'))
 
-        team1 = PlayerModel.objects.create(name="Team 1")
-        team2 = PlayerModel.objects.create(name="Team 2")
+        team1, _= PlayerModel.objects.get_or_create(name="Team 1")
+        team2, _ = PlayerModel.objects.get_or_create(name="Team 2")
 
         MatchModel.create_match(request.spark, team1, team2)
         return redirect(reverse('league:preview'))

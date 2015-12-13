@@ -81,7 +81,7 @@ class MatchModel(AbstractModel):
 
         winners, losers = self.team_names
 
-        easter_egg = set(winners + losers) == set(["mfts", "strobl", "bartoszhernas", "michal.hernas"])
+        easter_egg = set(winners + losers) == set(["mfts0", "_strobl", "bartoszhernas", "michal.hernas"])
 
         winners = " ".join(["@{0}".format(w) for w in winners])
         losers = " ".join(["@{0}".format(l) for l in losers])

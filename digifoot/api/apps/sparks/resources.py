@@ -57,7 +57,7 @@ class GoalResource(RetrieveUpdateAPIView):
             GoalModel.objects.create(whites=False, match=match)
 
 
-        if white >= 6 or black >= 6:
+        if white >= 10 or black >= 10:
             match.finish()
 
         serializer = self.get_serializer(instance)
