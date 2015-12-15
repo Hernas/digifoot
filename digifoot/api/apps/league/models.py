@@ -107,10 +107,7 @@ class MatchModel(AbstractModel):
 
     def tweet_if_needed(self):
         if not self.tweeted:
-            account = settings.TWITTER_ACCOUNT
-            api = twitter.Api(**account)
-
-            result = api.PostUpdate(self.tweet_message)
+            result = self.device.twitter_api.PostUpdate(self.tweet_message)
 
             self.tweeted = True
             self.save()

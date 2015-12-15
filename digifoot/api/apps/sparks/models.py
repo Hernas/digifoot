@@ -5,7 +5,9 @@ import logging
 
 from django.db.models.fields import CharField, TextField
 from django.conf import settings
+from django.utils.functional import cached_property
 import requests
+import twitter
 
 from digifoot.lib.django.models import AbstractModel
 
@@ -26,10 +28,10 @@ class SparkDeviceModel(AbstractModel):
     def reset_state(self):
         try:
             result = requests.post('https://api.spark.io/oauth/token', {
-                "username": settings.SPARK_ACCOUNT['username'],
-                "password": settings.SPARK_ACCOUNT['password'],
+                "username": self.SPARK_USERNAME,
+                "password": self.SPARK_PASSWORD,
                 "grant_type": "password"},
-                                   auth=(settings.SPARK_ACCOUNT['auth_user'], settings.SPARK_ACCOUNT['auth_password'])
+                                   auth=('spark', 'spark')
                                    )
             data = result.json()
             result = requests.post('https://api.particle.io/v1/devices/{0}/resetAll'.format(self.spark_id),
@@ -38,6 +40,17 @@ class SparkDeviceModel(AbstractModel):
         except KeyError:
             return False
 
+
+    @cached_property
+    def twitter_api(self):
+        account = {
+            'consumer_key': self.TWITTER_CONSUMER_KEY,
+            'consumer_secret': self.TWITTER_CONSUMER_SECRET,
+            'access_token_key': self.TWITTER_ACCESS_TOKEN_KEY,
+            'access_token_secret': self.TWITTER_ACCESS_TOKEN_SECRET,
+        }
+
+        return twitter.Api(**account)
 
     def __unicode__(self):
         return self.spark_id

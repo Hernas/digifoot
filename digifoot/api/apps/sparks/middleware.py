@@ -9,4 +9,10 @@ log = logging.getLogger(__name__)
 class SparkMiddleware(object):
 
     def process_request(self, request):
-        request.spark = SparkDeviceModel.objects.last()
+        domain = request.META.get('HTTP_HOST', "")
+        log.info("Using spark for domain: %s", domain)
+        spark = SparkDeviceModel.objects.filter(domain=domain).last()
+        if not spark:
+            spark = SparkDeviceModel.objects.first()
+
+        request.spark = spark

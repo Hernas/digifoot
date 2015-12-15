@@ -26,7 +26,11 @@
     {% block main %}{% endblock %}
 
 
-  <p class="footer">Crafted specially for <img src="{% static 'images/twitter_logo.png' %}" /> </p>
+  <div class="footer">
+    <p>Crafted specially for <img src="{% static 'images/twitter_logo.png' %}" /></p>
+    <sub style="color: #666">#{{ request.spark.spark_id }}</sub>
+  </div>
+
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   </body>

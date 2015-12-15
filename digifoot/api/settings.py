@@ -95,6 +95,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     "django.core.context_processors.request",
+    "django.template.context_processors.request",
 )
 
 REST_FRAMEWORK = {
@@ -159,18 +160,3 @@ if not DATABASES['default']:
 
 
 SERVER_EMAIL = "b@hern.as"
-
-
-TWITTER_ACCOUNT = {
-    'consumer_key': os.environ.get('TWITTER_ACCOUNT_CK', ''),
-    'consumer_secret': os.environ.get('TWITTER_ACCOUNT_CS', ''),
-    'access_token_key': os.environ.get('TWITTER_ACCOUNT_TK', ''),
-    'access_token_secret': os.environ.get('TWITTER_ACCOUNT_TS', ''),
-}
-
-SPARK_ACCOUNT = {
-    'auth_user': 'spark',
-    'auth_password': 'spark',
-    'username': os.environ.get('SPARK_ACCOUNT_U', ''),
-    'password': os.environ.get('SPARK_ACCOUNT_P', ''),
-}
