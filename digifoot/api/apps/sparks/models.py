@@ -18,6 +18,7 @@ log = logging.getLogger(__name__)
 class SparkDeviceModel(AbstractModel):
     spark_id = CharField(unique=True, max_length=255)
     domain = TextField(blank=True)
+    org_name = TextField(blank=True)
     TWITTER_CONSUMER_KEY = TextField(blank=True)
     TWITTER_CONSUMER_SECRET = TextField(blank=True)
     TWITTER_ACCESS_TOKEN_KEY = TextField(blank=True)

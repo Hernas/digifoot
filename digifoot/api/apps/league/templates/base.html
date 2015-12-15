@@ -27,7 +27,13 @@
 
 
   <div class="footer">
-    <p>Crafted specially for <img src="{% static 'images/twitter_logo.png' %}" /></p>
+    <p>Crafted specially for
+      {% if request.spark.org_name %}
+        <strong>{{ request.spark.org_name }}</strong>
+      {% else %}
+      <img src="{% static 'images/twitter_logo.png' %}" />
+      {% endif %}
+    </p>
     <sub style="color: #666">#{{ request.spark.spark_id }}</sub>
   </div>
 
