@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 import logging
 
-from django.db.models.fields import CharField
+from django.db.models.fields import CharField, TextField
 from django.conf import settings
 import requests
 
