@@ -1,18 +1,17 @@
 {% extends 'base.html' %}
 {% block main %}
+  <!-- START -->
+  <section id="home" class="page active">
+    <div class="toolbar">
+      <h1>Digital Foosball</h1>
+    </div>
+    <h2 class="h1">Willkommen beim DIGITAL FOOSBALL</h2>
 
-
-		<!-- START -->
-		<section id="home" class="page active">
-			<div class="toolbar">
-				<h1>Digital Foosball</h1>
-			</div>
-			<h2 class="h1">Willkommen beim DIGITAL FOOSBALL</h2>
-			<p>Lust auf ein Spiel?</p>
-			<ul id="gametypes">
-				<li class="two"><a href="{% url 'league:new' 2 %}" class="js_login" data-opponents="2">1 Gegen 1</a></li>
-				<li class="four"><a href="{% url 'league:new' 4 %}">2 Gegen 2</a></li>
-				<li class="quick"><a href="{% url 'league:quick_start' %}" class="js_quickstart">Quickstart</a></li>
-			</ul>
-		</section>
+    <p>Lust auf ein Spiel?</p>
+    <ul id="gametypes">
+      <li class="two"><a href="{% url 'league:new' 2 %}" class="js_login" data-opponents="2">1 Gegen 1</a></li>
+      <li class="four"><a href="{% url 'league:new' 4 %}">2 Gegen 2</a></li>
+      <li class="quick"><a href="{% url 'league:quick_start' %}" class="js_quickstart">Quickstart</a></li>
+    </ul>
+  </section>
 {% endblock %}

@@ -20,6 +20,30 @@
     <![endif]-->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+
+
+  <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
+  <script>
+    // Enable pusher logging - don't include this in production
+    Pusher.log = function (message) {
+      if (window.console && window.console.log) {
+        window.console.log(message);
+      }
+    };
+
+    var pusher = new Pusher('{{ request.spark.PUSHER_PUBLIC }}', {
+      cluster: '{{ request.spark.PUSHER_CLUSTER }}',
+      encrypted: true
+    });
+
+
+    var channel = pusher.subscribe('{{ request.spark.pusher_channel_name }}');
+    channel.bind('match-changed', function(data) {
+      window.location.href = '{% url 'league:index' %}';
+    });
+  </script>
+
   </head>
   <body>
 

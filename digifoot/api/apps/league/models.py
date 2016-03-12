@@ -45,6 +45,7 @@ class MatchModel(AbstractModel):
 
     def cancel(self):
         self.device.reset_state()
+        self.device.pusher_send_match_changed()
 
         self.canceled = True
         self.save()
@@ -144,6 +145,7 @@ class MatchModel(AbstractModel):
             match.black_side_players.add(black_player2)
 
         match.device.reset_state()
+        match.device.pusher_send_match_changed()
         return match
 
     @classmethod

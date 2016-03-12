@@ -68,6 +68,9 @@ class SparkDeviceModel(AbstractModel):
             'finished': finished,
         })
 
+    def pusher_send_match_changed(self):
+        self.pusher_client.trigger(self.pusher_channel_name, 'match-changed', {})
+
     @cached_property
     def twitter_api(self):
         account = {
