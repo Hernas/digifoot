@@ -125,3 +125,13 @@ class QuickStartView(View):
 
         MatchModel.create_match(request.spark, team1, team2)
         return redirect(reverse('league:preview'))
+
+
+
+class StatsView(TemplateView):
+    template_name = "stats/index.html"
+
+    def get(self, request, *args, **kwargs):
+        return self.render_to_response({
+            'matches': MatchModel.objects.filter(device=request.spark, finished=True).order_by('-finished_at').all()[0:50]
+        })
