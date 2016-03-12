@@ -94,15 +94,15 @@ class FinalResultsMatchView(TemplateView):
 class ChangeSidesView(View):
 
     def get(self, request, *args, **kwargs):
-        match = MatchModel.objects.filter(device=request.spark, finished=True).last()
-        match.cancel()
+        old_match = MatchModel.objects.filter(device=request.spark, finished=True).last()
+        old_match.cancel()
 
         match = MatchModel.last_match(request.spark)
         if match:
             return redirect(reverse('league:preview'))
 
-        white_players = match.white_side_players.all()
-        black_players = match.black_side_players.all()
+        white_players = old_match.white_side_players.all()
+        black_players = old_match.black_side_players.all()
 
         wp1 = white_players[0]
         bp1 = black_players[0]
