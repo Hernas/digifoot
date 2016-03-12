@@ -16,3 +16,5 @@ pytz
 pusher
 cryptography
 python-twitter
+django-pylibmc
+pylibmc

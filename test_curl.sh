@@ -1,6 +1,7 @@
 #!/bin/bash
 x=1;
 while [ $x -le 100000 ] ; do
-    time curl 'http://127.0.0.1:8000/matches/current/'
+    echo "Running - $x"
+    time curl 'http://df.hern.as/matches/current/'
     x=$[x + 1]
 done
