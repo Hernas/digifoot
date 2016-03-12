@@ -44,10 +44,14 @@ class MatchModel(AbstractModel):
         return self.finished_at - self.created_at
 
     def cancel(self):
+        self.device.reset_state()
+
         self.canceled = True
         self.save()
 
     def finish(self):
+        self.device.reset_state()
+
         self.finished = True
         self.finished_at = timezone.now()
         self.save()
