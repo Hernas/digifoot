@@ -6,6 +6,7 @@ import logging
 from django.db.models.fields import CharField, BooleanField, DateTimeField
 from django.db.models.fields.related import ForeignKey, ManyToManyField
 from django.utils import timezone
+from twitter.error import TwitterError
 
 from digifoot.api.apps.sparks.models import SparkDeviceModel
 from digifoot.lib.django.models import AbstractModel
@@ -89,11 +90,12 @@ class MatchModel(AbstractModel):
 
         winners_score, losers_score = self.final_scores
 
-        status = "Schönes Ding: {winners} gewinnt {winners_score}:{losers_score} gegen {losers}".format(
+        status = "#{pk} Schönes Ding: {winners} gewinnt {winners_score}:{losers_score} gegen {losers}".format(
             winners=winners,
             winners_score=winners_score,
             losers_score=losers_score,
             losers=losers,
+            pk=self.pk
         )
 
         if easter_egg:
@@ -108,10 +110,13 @@ class MatchModel(AbstractModel):
 
     def tweet_if_needed(self):
         if not self.tweeted:
-            result = self.device.twitter_api.PostUpdate(self.tweet_message)
+            try:
+                result = self.device.twitter_api.PostUpdate(self.tweet_message)
 
-            self.tweeted = True
-            self.save()
+                self.tweeted = True
+                self.save()
+            except TwitterError:
+                pass
 
 
     @classmethod
