@@ -74,7 +74,7 @@ class PreviewMatchView(TemplateView):
         if not match:
             return redirect(reverse('league:index'))
 
-        return self.render_to_response({"match": match})
+        return self.render_to_response({"match": match, "spark": request.spark})
 
 class CancelMatchView(View):
 

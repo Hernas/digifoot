@@ -1,14 +1,11 @@
 var scoreSign = [];
 
-var refreshScores = function () {
-  $.ajax(refresh_url).then(function (response) {
-    console.info(response);
-    if(response.finished) {
+var refreshScores = function (white_count, black_count, finished) {
+    if(finished) {
       window.location.href = final_results_url;
     }
-    scored(response.white_count, response.black_count);
-  })
-}
+    scored(white_count, black_count);
+};
 
 
 $(document).ready(function () {
@@ -17,11 +14,6 @@ $(document).ready(function () {
   }
   // Reset score
   $("#scorehome, #scorevisitors").html(scoreSign.join(""));
-
-  // Start refreshing scores
-  setInterval(function () {
-    refreshScores();
-  }, 1000);
 });
 
 

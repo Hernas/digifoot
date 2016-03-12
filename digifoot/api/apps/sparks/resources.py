@@ -64,6 +64,5 @@ class GoalResource(RetrieveUpdateAPIView):
         if white >= goal_limit or black >= goal_limit:
             match.finish()
 
-        serializer = self.get_serializer(instance)
-        data = serializer.data
-        return Response(data=data)
+        match.send_to_pusher()
+        return Response({})

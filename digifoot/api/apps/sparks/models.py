@@ -6,6 +6,7 @@ import logging
 from django.db.models.fields import CharField, TextField, IntegerField
 from django.conf import settings
 from django.utils.functional import cached_property
+import pusher
 import requests
 import twitter
 
@@ -26,6 +27,10 @@ class SparkDeviceModel(AbstractModel):
     TWITTER_ACCESS_TOKEN_SECRET = TextField(blank=True)
     SPARK_USERNAME = TextField(blank=True)
     SPARK_PASSWORD = TextField(blank=True)
+    PUSHER_APP_ID = TextField(blank=True)
+    PUSHER_PUBLIC = TextField(blank=True)
+    PUSHER_PRIVATE = TextField(blank=True)
+    PUSHER_CLUSTER = TextField(blank=True)
 
     def reset_state(self):
         try:
@@ -42,6 +47,26 @@ class SparkDeviceModel(AbstractModel):
         except KeyError:
             return False
 
+    @cached_property
+    def pusher_client(self):
+        return pusher.Pusher(
+            app_id=self.PUSHER_APP_ID,
+            key=self.PUSHER_PUBLIC,
+            secret=self.PUSHER_PRIVATE,
+            cluster=self.PUSHER_CLUSTER,
+            ssl=True
+        )
+
+    @property
+    def pusher_channel_name(self):
+        return "goals-{0}".format(self.spark_id)
+
+    def pusher_send_goal(self, white_goals, black_goals, finished):
+        self.pusher_client.trigger(self.pusher_channel_name, 'goal', {
+            'white_goals': white_goals,
+            'black_goals': black_goals,
+            'finished': finished,
+        })
 
     @cached_property
     def twitter_api(self):

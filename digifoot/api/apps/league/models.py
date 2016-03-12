@@ -6,8 +6,6 @@ import logging
 from django.db.models.fields import CharField, BooleanField, DateTimeField
 from django.db.models.fields.related import ForeignKey, ManyToManyField
 from django.utils import timezone
-import twitter
-from django.conf import settings
 
 from digifoot.api.apps.sparks.models import SparkDeviceModel
 from digifoot.lib.django.models import AbstractModel
@@ -150,6 +148,9 @@ class MatchModel(AbstractModel):
     @property
     def black_count(self):
         return self.goals.filter(whites=False).count()
+
+    def send_to_pusher(self):
+        self.device.pusher_send_goal(self.white_count, self.black_count, self.finished)
 
 
 class GoalModel(AbstractModel):

@@ -3,11 +3,29 @@
 {% block main %}
   <script type="application/javascript" src="{% static "js/scoreboard.js" %}"></script>
   <script type="application/javascript">
-    var refresh_url = "{% url 'league:current' %}";
     var final_results_url = "{% url 'league:final_results' %}";
     $(document).ready(function () {
       scored("{{ match.white_count }}", "{{ match.black_count }}");
+    });
+  </script>
 
+  <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
+  <script>
+    // Enable pusher logging - don't include this in production
+    Pusher.log = function(message) {
+      if (window.console && window.console.log) {
+        window.console.log(message);
+      }
+    };
+
+    var pusher = new Pusher('{{ spark.PUSHER_PUBLIC }}', {
+      cluster: '{{ spark.PUSHER_CLUSTER }}',
+      encrypted: true
+    });
+
+    var channel = pusher.subscribe('{{ spark.pusher_channel_name }}');
+    channel.bind('goal', function(data) {
+      refreshScores(data.white_goals, data.black_goals, data.finished);
     });
   </script>
 
