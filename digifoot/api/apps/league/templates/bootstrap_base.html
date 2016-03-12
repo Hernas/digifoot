@@ -22,7 +22,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
-
+{% block header %}
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
@@ -40,11 +40,13 @@
         <li class="active"><a href="{% url 'league:stats' %}">Statistics</a></li>
         <li class=""><a href="{% url 'league:new' players_num=2 %}">New 2 vs 2</a></li>
         <li class=""><a href="{% url 'league:new' players_num=4 %}">New 4 vs 4</a></li>
+        <li class=""><a href="{% url 'league:credits' %}">Credits</a></li>
       </ul>
     </div>
     <!--/.nav-collapse -->
   </div>
 </nav>
+{% endblock %}
 
 <div class="container">
 
