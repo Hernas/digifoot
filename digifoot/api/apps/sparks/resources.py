@@ -37,8 +37,9 @@ class GoalResource(RetrieveUpdateAPIView):
     lookup_url_kwarg = "spark_id"
 
     def post(self, request, spark_id):
-
         instance = self.get_object()
+        goal_limit = instance.goal_limit
+
         match = MatchModel.last_match(instance)
         if match is None:
             return Response(data={"error": "Please start match first"})
@@ -50,6 +51,9 @@ class GoalResource(RetrieveUpdateAPIView):
         except ValueError:
             return Response(data={"error": "Wrong data. Data needs to be two numeric values separated by comma"})
 
+        white = min(white, goal_limit)
+        black = min(black, goal_limit)
+
         for index in range(match.white_count, white):
             GoalModel.objects.create(whites=True, match=match)
 
@@ -57,7 +61,7 @@ class GoalResource(RetrieveUpdateAPIView):
             GoalModel.objects.create(whites=False, match=match)
 
 
-        if white >= 10 or black >= 10:
+        if white >= goal_limit or black >= goal_limit:
             match.finish()
 
         serializer = self.get_serializer(instance)

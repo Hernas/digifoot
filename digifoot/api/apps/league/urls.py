@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.conf.urls import url
+from django.views.decorators.cache import cache_page
 
 from digifoot.api.apps.league.resources import MatchResource
 from digifoot.api.apps.league.views import StartMatchView, IndexView, PreviewMatchView, CancelMatchView, \
@@ -19,5 +20,5 @@ urlpatterns = [
     url(r'^credits/$', CreditsView.as_view(), name="credits"),
 
     # API
-    url(r'^matches/current/$', MatchResource.as_view(), name="current"),
+    url(r'^matches/current/$', cache_page(2)(MatchResource.as_view()), name="current"),
 ]

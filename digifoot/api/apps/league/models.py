@@ -27,8 +27,11 @@ class MatchModel(AbstractModel):
     class MatchAlreadyInProgress(Exception):
         pass
 
-    device = ForeignKey(SparkDeviceModel, related_name="matches")
-    finished = BooleanField(default=False)
+    class Meta:
+        index_together = ('device', 'finished', )
+
+    device = ForeignKey(SparkDeviceModel, related_name="matches", db_index=True)
+    finished = BooleanField(default=False, db_index=True)
     finished_at = DateTimeField(blank=False, default=timezone.now)
 
     tweeted = BooleanField(default=False)

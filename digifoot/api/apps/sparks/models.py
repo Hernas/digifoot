@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 import logging
 
-from django.db.models.fields import CharField, TextField
+from django.db.models.fields import CharField, TextField, IntegerField
 from django.conf import settings
 from django.utils.functional import cached_property
 import requests
@@ -19,6 +19,7 @@ class SparkDeviceModel(AbstractModel):
     spark_id = CharField(unique=True, max_length=255)
     domain = TextField(blank=True)
     org_name = TextField(blank=True)
+    goal_limit = IntegerField(default=10)
     TWITTER_CONSUMER_KEY = TextField(blank=True)
     TWITTER_CONSUMER_SECRET = TextField(blank=True)
     TWITTER_ACCESS_TOKEN_KEY = TextField(blank=True)

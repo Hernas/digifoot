@@ -2,6 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import logging
+from django.views.decorators.cache import cache_page
 
 from rest_framework import permissions
 from rest_framework.generics import RetrieveAPIView
@@ -19,6 +20,9 @@ class MatchResource(RetrieveAPIView):
     ]
 
     serializer_class = MatchModelSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
 
     def get_object(self):
         return MatchModel.objects.filter(device=self.request.spark, canceled=False).last()
